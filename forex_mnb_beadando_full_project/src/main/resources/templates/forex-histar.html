@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Forex-HistÁr</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<header>
+    <div><strong>Forex-HistÁr</strong></div>
+    <nav>
+        <a th:href="@{/}">Főoldal</a>
+        <a th:href="@{/soap}">SOAP</a>
+        <a th:href="@{/forex-account}">Forex-account</a>
+        <a th:href="@{/forex-aktar}">Forex-AktÁr</a>
+        <a th:href="@{/forex-histar}">Forex-HistÁr</a>
+        <a th:href="@{/forex-nyit}">Forex-Nyit</a>
+        <a th:href="@{/forex-poz}">Forex-Poz</a>
+        <a th:href="@{/forex-zar}">Forex-Zár</a>
+    </nav>
+</header>
+
+<main class="container">
+    <h1>Historikus árak (utolsó 10)</h1>
+
+    <form method="post" th:action="@{/forex-histar}">
+        <div class="grid-2">
+            <div>
+                <label for="instrument">Instrumentum:</label>
+                <select id="instrument" name="instrument">
+                    <option th:each="i : ${instruments}" th:value="${i}" th:text="${i}"></option>
+                </select>
+            </div>
+            <div>
+                <label for="granularity">Granularity:</label>
+                <select id="granularity" name="granularity">
+                    <option th:each="g : ${granularities}" th:value="${g}" th:text="${g}"></option>
+                </select>
+            </div>
+        </div>
+        <div style="margin-top: 1rem;">
+            <button type="submit">Lekérés</button>
+        </div>
+    </form>
+
+    <section th:if="${prices != null}" style="margin-top: 2rem;">
+        <h2>Eredmények</h2>
+        <p>
+            Instrumentum: <strong th:text="${selectedInstrument}"></strong><br>
+            Granularity: <strong th:text="${selectedGranularity}"></strong>
+        </p>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Ár</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="p, iter : ${prices}">
+                <td th:text="${iter.index + 1}"></td>
+                <td th:text="${p}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

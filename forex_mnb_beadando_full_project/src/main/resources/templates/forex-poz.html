@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Forex-Poz</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<header>
+    <div><strong>Forex-Poz</strong></div>
+    <nav>
+        <a th:href="@{/}">Főoldal</a>
+        <a th:href="@{/soap}">SOAP</a>
+        <a th:href="@{/forex-account}">Forex-account</a>
+        <a th:href="@{/forex-aktar}">Forex-AktÁr</a>
+        <a th:href="@{/forex-histar}">Forex-HistÁr</a>
+        <a th:href="@{/forex-nyit}">Forex-Nyit</a>
+        <a th:href="@{/forex-poz}">Forex-Poz</a>
+        <a th:href="@{/forex-zar}">Forex-Zár</a>
+    </nav>
+</header>
+
+<main class="container">
+    <h1>Nyitott pozíciók</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>tradeId</th>
+            <th>Instrumentum</th>
+            <th>Iránya</th>
+            <th>Mennyiség</th>
+            <th>Nyitó ár</th>
+            <th>Nyitás ideje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${positions}">
+            <td th:text="${p.tradeId}"></td>
+            <td th:text="${p.instrument}"></td>
+            <td th:text="${p.direction}"></td>
+            <td th:text="${p.units}"></td>
+            <td th:text="${p.openPrice}"></td>
+            <td th:text="${p.openTime}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p th:if="${#lists.isEmpty(positions)}">Jelenleg nincs nyitott pozíció.</p>
+</main>
+</body>
+</html>
