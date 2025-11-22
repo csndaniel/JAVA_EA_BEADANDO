@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Forex-account</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<header>
+    <div><strong>Forex-account</strong></div>
+    <nav>
+        <a th:href="@{/}">Főoldal</a>
+        <a th:href="@{/soap}">SOAP</a>
+        <a th:href="@{/forex-account}">Forex-account</a>
+        <a th:href="@{/forex-aktar}">Forex-AktÁr</a>
+        <a th:href="@{/forex-histar}">Forex-HistÁr</a>
+        <a th:href="@{/forex-nyit}">Forex-Nyit</a>
+        <a th:href="@{/forex-poz}">Forex-Poz</a>
+        <a th:href="@{/forex-zar}">Forex-Zár</a>
+    </nav>
+</header>
+
+<main class="container">
+    <h1>Számlainformációk</h1>
+    <table>
+        <tr>
+            <th>Számla azonosító</th>
+            <td th:text="${account.accountId}"></td>
+        </tr>
+        <tr>
+            <th>Egyenleg</th>
+            <td th:text="${account.balance}"></td>
+        </tr>
+        <tr>
+            <th>Equity</th>
+            <td th:text="${account.equity}"></td>
+        </tr>
+        <tr>
+            <th>Felhasznált margin</th>
+            <td th:text="${account.marginUsed}"></td>
+        </tr>
+        <tr>
+            <th>Nyitott pozíciók száma</th>
+            <td th:text="${account.openPositions}"></td>
+        </tr>
+    </table>
+</main>
+</body>
+</html>

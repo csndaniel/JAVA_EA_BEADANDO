@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CSND - RR - Java EA</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<header>
+    <div><strong>Java-alkalmazások beadandó</strong></div>
+    <nav>
+        <a th:href="@{/}">Főoldal</a>
+        <a th:href="@{/soap}">SOAP (MNB)</a>
+        <a th:href="@{/forex-account}">Forex-account</a>
+        <a th:href="@{/forex-aktar}">Forex-AktÁr</a>
+        <a th:href="@{/forex-histar}">Forex-HistÁr</a>
+        <a th:href="@{/forex-nyit}">Forex-Nyit</a>
+        <a th:href="@{/forex-poz}">Forex-Poz</a>
+        <a th:href="@{/forex-zar}">Forex-Zár</a>
+    </nav>
+</header>
+
+<main class="container">
+    <h1>Üdv a webalkalmazásunkban!</h1>
+    <p>
+        Ez a beadandó egy Spring Boot alapú szerver oldali web-alkalmazás,
+        melyet a "Java-alkalmazások" előadás óráira készítettünk. Az MNB deviza árfolyam webszolgáltatását használja SOAP-on keresztül,
+        valamint egy egyszerű, demó jellegű Forex kereskedési klienst valósít meg.
+    </p>
+
+    <div class="grid-2" style="margin-top: 2rem;">
+        <section>
+            <h2>SOAP menü (MNB)</h2>
+            <p>
+                A SOAP menüben kiválaszthatod a devizát, a kezdő és végdátumot,
+                majd az alkalmazás az MNB SOAP webszervizén keresztül lekéri a hivatalos
+                napi árfolyamokat, táblázatban és grafikonon is megjelenítve.
+            </p>
+        </section>
+        <section>
+            <h2>Forex menük</h2>
+            <ul>
+                <li><strong>Forex-account:</strong> számlainformációk.</li>
+                <li><strong>Forex-AktÁr:</strong> aktuális árak instrumentumonként.</li>
+                <li><strong>Forex-HistÁr:</strong> 10 utolsó historikus ár.</li>
+                <li><strong>Forex-Nyit:</strong> pozíció nyitása (Long / Short).</li>
+                <li><strong>Forex-Poz:</strong> nyitott pozíciók listája.</li>
+                <li><strong>Forex-Zár:</strong> pozíció zárása tradeId alapján.</li>
+            </ul>
+        </section>
+    </div>
+</main>
+</body>
+</html>

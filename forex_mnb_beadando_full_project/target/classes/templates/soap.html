@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SOAP - MNB árfolyam</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header>
+    <div><strong>SOAP - MNB árfolyam</strong></div>
+    <nav>
+        <a th:href="@{/}">Főoldal</a>
+        <a th:href="@{/soap}">SOAP</a>
+        <a th:href="@{/forex-account}">Forex-account</a>
+        <a th:href="@{/forex-aktar}">Forex-AktÁr</a>
+        <a th:href="@{/forex-histar}">Forex-HistÁr</a>
+        <a th:href="@{/forex-nyit}">Forex-Nyit</a>
+        <a th:href="@{/forex-poz}">Forex-Poz</a>
+        <a th:href="@{/forex-zar}">Forex-Zár</a>
+    </nav>
+</header>
+
+<main class="container" th:with="hasData=${rates} != null">
+    <h1>MNB devizaárfolyamok (SOAP)</h1>
+
+    <form method="post" th:action="@{/soap}">
+        <div class="grid-2">
+            <div>
+                <label for="currency">Deviza:</label>
+                <select id="currency" name="currency">
+                    <option value="EUR">EUR</option>
+                    <option value="USD">USD</option>
+                    <option value="CHF">CHF</option>
+                    <option value="GBP">GBP</option>
+                </select>
+            </div>
+            <div>
+                <label for="startDate">Kezdő dátum:</label>
+                <input type="date" id="startDate" name="startDate" required>
+            </div>
+            <div>
+                <label for="endDate">Befejező dátum:</label>
+                <input type="date" id="endDate" name="endDate" required>
+            </div>
+        </div>
+        <div style="margin-top: 1rem;">
+            <button type="submit">Lekérés</button>
+        </div>
+    </form>
+
+    <p th:if="${error}" th:text="${error}" style="color: red; margin-top:1rem;"></p>
+
+    <section th:if="${hasData}" style="margin-top: 2rem;">
+        <h2 th:text="'Eredmények - ' + ${currency}"></h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Dátum</th>
+                <th>Árfolyam</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="r : ${rates}">
+                <td th:text="${r.date}"></td>
+                <td th:text="${r.value}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3 style="margin-top:2rem;">Grafikon</h3>
+        <canvas id="ratesChart" width="800" height="400"></canvas>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            let labels = [[${dates}]];
+            let values = [[${values}]];
+
+            const ctx = document.getElementById('ratesChart');
+            if (ctx && labels && labels.length > 0) {
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Árfolyam',
+                            data: values,
+                            tension: 0.2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                ticks: { autoSkip: true, maxTicksLimit: 10 }
+                            }
+                        }
+                    }
+                });
+            }
+            /*]]>*/
+        </script>
+    </section>
+</main>
+</body>
+</html>
